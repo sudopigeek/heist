@@ -80,6 +80,32 @@ namespace heist
             var sortedDict = from entry in systemList orderby entry.Value ascending select entry;
             Console.WriteLine($"Least Secure: {sortedDict.ElementAt(0).Key}");
             Console.WriteLine($"Most Secure: {sortedDict.ElementAt(2).Key}");
+            for (int i = 0; i < rolodex.Count; i++)
+            {
+                Console.WriteLine($"{i}. {rolodex[i].Name}:");
+                Console.WriteLine($"    Speciality: {rolodex[i].GetType().ToString().Split('.')[1]}");
+                Console.WriteLine($"    Skill Level: {rolodex[i].SkillLevel}");
+                Console.WriteLine($"    Percentage Cut: {rolodex[i].PercentageCut}%");
+            }
+            List<IRobber> crew = new List<IRobber>();
+            string output = "value";
+            while (output != "")
+            {
+                Console.Write("Enter the number of the operative you want to include in the heist:");
+                output = Console.ReadLine();
+                if (output == "") { continue; }
+                int num = int.Parse(output);
+                List<IRobber> filtered = rolodex.Where(r => !crew.Contains(r) && r.PercentageCut < 100 - crew.Select(s => s.PercentageCut).Sum()).ToList();
+                if (filtered.Contains(rolodex[num]))
+                {
+                    crew.Add(rolodex[num]);
+                    Console.WriteLine("Operative usccessfully added!");
+                }
+                else
+                {
+                    Console.WriteLine("Operative is already included.");
+                }
+            }
         }
     }
 }
