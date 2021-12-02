@@ -15,47 +15,55 @@ namespace heist
                 {new LockSpecialist() {Name = "Riley", SkillLevel = 88, PercentageCut = 30}},
                 {new LockSpecialist() {Name = "Steve", SkillLevel = 76, PercentageCut = 15}}
             };
-
-            Console.WriteLine("Current Operatives:\n");
-            foreach (IRobber robber in rolodex)
+            string crewMember = "value";
+            while (crewMember != "")
             {
-                Console.WriteLine($"{robber.Name}");
-            }
-            Console.Write("Enter a new crew member: ");
-            string crewMember = Console.ReadLine();
-            Console.Write($"What speciality (Hacker, Muscle, Lock Specialist) should {crewMember} have? ");
-            string speciality = Console.ReadLine();
-            Console.Write($"What skill level (1-100) should this {speciality} have? ");
-            int skillLevel = int.Parse(Console.ReadLine());
-            Console.Write($"What should {crewMember} want as a percentage cut? ");
-            int percentageCut = int.Parse(Console.ReadLine());
-            if (speciality == "Hacker")
-            {
-                rolodex.Add(new Hacker()
+                Console.WriteLine("Current Operatives:\n");
+                foreach (IRobber robber in rolodex)
                 {
-                    Name = crewMember,
-                    SkillLevel = skillLevel,
-                    PercentageCut = percentageCut
-                });
-            }
-            else if (speciality == "Muscle")
-            {
-                rolodex.Add(new Muscle()
+                    Console.WriteLine($"{robber.Name}");
+                }
+                Console.Write("Enter a new crew member: ");
+                crewMember = Console.ReadLine();
+                if (crewMember == "") { continue; }
+                Console.Write($"What speciality (Hacker, Muscle, Lock Specialist) should {crewMember} have? ");
+                string speciality = Console.ReadLine();
+                Console.Write($"What skill level (1-100) should this {speciality} have? ");
+                int skillLevel = int.Parse(Console.ReadLine());
+                Console.Write($"What should {crewMember} want as a percentage cut? ");
+                int percentageCut = int.Parse(Console.ReadLine());
+                if (speciality == "Hacker")
                 {
-                    Name = crewMember,
-                    SkillLevel = skillLevel,
-                    PercentageCut = percentageCut
-                });
-            }
-            else if (speciality == "Lock Specialist")
-            {
-                rolodex.Add(new LockSpecialist()
+                    rolodex.Add(new Hacker()
+                    {
+                        Name = crewMember,
+                        SkillLevel = skillLevel,
+                        PercentageCut = percentageCut
+                    });
+                    Console.WriteLine("Crew member added!");
+                }
+                else if (speciality == "Muscle")
                 {
-                    Name = crewMember,
-                    SkillLevel = skillLevel,
-                    PercentageCut = percentageCut
-                });
+                    rolodex.Add(new Muscle()
+                    {
+                        Name = crewMember,
+                        SkillLevel = skillLevel,
+                        PercentageCut = percentageCut
+                    });
+                    Console.WriteLine("Crew member added!");
+                }
+                else if (speciality == "Lock Specialist")
+                {
+                    rolodex.Add(new LockSpecialist()
+                    {
+                        Name = crewMember,
+                        SkillLevel = skillLevel,
+                        PercentageCut = percentageCut
+                    });
+                    Console.WriteLine("Crew member added!");
+                }
             }
+            Console.WriteLine("Left");
         }
     }
 }
