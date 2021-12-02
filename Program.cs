@@ -99,12 +99,32 @@ namespace heist
                 if (filtered.Contains(rolodex[num]))
                 {
                     crew.Add(rolodex[num]);
-                    Console.WriteLine("Operative usccessfully added!");
+                    Console.WriteLine("Operative successfully added!");
                 }
                 else
                 {
                     Console.WriteLine("Operative is already included.");
                 }
+            }
+            foreach (IRobber robber in crew)
+            {
+                robber.PerformSkill(bank1);
+            }
+            if (bank1.IsSecure)
+            {
+                Console.WriteLine("The heist was a failure. :(");
+            }
+            else
+            {
+                Console.WriteLine("The heist was a success!!!!");
+                Console.WriteLine("\n===== Operative Pay =====\n");
+                double moneyPaid = 0;
+                foreach (IRobber robber in crew)
+                {
+                    moneyPaid += (bank1.CashOnHand * (robber.PercentageCut * .01));
+                    Console.WriteLine($"{robber.Name}: {robber.PercentageCut}% of ${bank1.CashOnHand.ToString("N")} = ${(bank1.CashOnHand * (robber.PercentageCut * .01)).ToString("N")}");
+                }
+                Console.WriteLine($"Amount left over for yourself: ${((double)bank1.CashOnHand - moneyPaid).ToString("N")}");
             }
         }
     }
